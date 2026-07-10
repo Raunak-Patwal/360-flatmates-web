@@ -17,7 +17,11 @@ describe("BUG-01: outgoingLikesInfiniteOptions", () => {
 
   it("calls the correct endpoint for outgoing likes", async () => {
     requestMock.mockResolvedValue({ items: [] });
-    await outgoingLikesInfiniteOptions().queryFn({ pageParam: undefined, signal: new AbortController().signal } as any);
+    await outgoingLikesInfiniteOptions().queryFn({
+      pageParam: undefined,
+      signal: new AbortController().signal,
+      queryKey: ["matches", "outgoing"] as const
+    } as unknown as Parameters<ReturnType<typeof outgoingLikesInfiniteOptions>["queryFn"]>[0]);
     expect(requestMock).toHaveBeenCalledWith(
       expect.objectContaining({
         method: "GET",

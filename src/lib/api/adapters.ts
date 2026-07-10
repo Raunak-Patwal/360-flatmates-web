@@ -22,10 +22,18 @@ import { formatLocation, formatRelativeTime, formatMessageTime } from "@/lib/uti
 
 /** Map API property type to ListingCardData for the ListingCard component */
 export function propertyToListingCardProps(property: Property): ListingCardData {
+  const price = property.base_price ?? property.monthly_rent ?? property.daily_rate ?? 0;
+  const priceSuffix = property.purpose === "buy"
+    ? ""
+    : property.purpose === "short_stay"
+      ? "/day"
+      : "/mo";
+
   return {
     id: String(property.id),
     title: property.title,
-    price: property.monthly_rent,
+    price,
+    priceSuffix,
     imageUrl: property.main_image_url,
     locality: property.locality,
     city: property.city,

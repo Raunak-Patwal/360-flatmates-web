@@ -35,7 +35,7 @@ describe("BUG-04: useUpdateVisit routing", () => {
 
     const { result } = renderHook(() => useUpdateVisit(10), { wrapper });
     
-    result.current.mutate({ status: "confirmed" } as any);
+    result.current.mutate({ status: "confirmed" } as Parameters<typeof result.current.mutate>[0]);
     
     await waitFor(() => expect(result.current.isSuccess).toBe(true));
 
@@ -53,7 +53,7 @@ describe("BUG-04: useUpdateVisit routing", () => {
 
     const { result } = renderHook(() => useUpdateVisit(20), { wrapper });
     
-    result.current.mutate({ status: "confirmed" } as any);
+    result.current.mutate({ status: "confirmed" } as Parameters<typeof result.current.mutate>[0]);
     
     await waitFor(() => expect(result.current.isSuccess).toBe(true));
 

@@ -232,7 +232,7 @@ export const PROPERTY_TYPE_VALUES = ["pg", "flatmate"] as const;
 
 export type PropertyType = (typeof PROPERTY_TYPE_VALUES)[number];
 
-export const PROPERTY_PURPOSE_VALUES = ["rent"] as const;
+export const PROPERTY_PURPOSE_VALUES = ["rent", "buy", "short_stay"] as const;
 
 export type PropertyPurpose = (typeof PROPERTY_PURPOSE_VALUES)[number];
 

@@ -14,6 +14,7 @@ export interface ListingCardData {
   id: string;
   title: string;
   price: number;
+  priceSuffix?: string;
   imageUrl?: string | null;
   locality: string;
   city?: string;
@@ -97,7 +98,7 @@ export function ListingCard({
       <div className="flex min-w-0 flex-col gap-2.5 flex-1">
         {/* Price + Title */}
         <div className="min-w-0">
-          <PriceText value={listing.price} variant="card" className="text-ink font-serif font-normal text-lg" />
+          <PriceText value={listing.price} suffix={listing.priceSuffix} variant="card" className="text-ink font-serif font-normal text-lg" />
           <h3 className="mt-0.5 line-clamp-1 text-body-md font-sans font-semibold text-ink group-hover:text-accent transition-colors duration-300">
             {listing.title}
           </h3>

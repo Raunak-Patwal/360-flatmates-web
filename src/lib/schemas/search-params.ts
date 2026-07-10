@@ -13,7 +13,6 @@ import {
   parseAsString,
   parseAsInteger,
   parseAsArrayOf,
-  parseAsFloat,
   createParser,
 } from "nuqs";
 

@@ -84,6 +84,38 @@ describe("propertyToListingCardProps", () => {
       avatarUrl: "https://example.com/avatar.jpg"
     });
   });
+
+  it("maps base_price and daily_rate dynamically for non-rent purposes", () => {
+    const buyProperty = {
+      id: 101,
+      property_type: "flat",
+      purpose: "buy",
+      title: "Luxury Apartment",
+      city: "Bangalore",
+      locality: "Indiranagar",
+      base_price: 15000000,
+      monthly_rent: 0,
+    } as Property;
+
+    const shortStayProperty = {
+      id: 102,
+      property_type: "room",
+      purpose: "short_stay",
+      title: "Cozy Room",
+      city: "Bangalore",
+      locality: "HSR",
+      base_price: 1200,
+      daily_rate: 1500,
+    } as Property;
+
+    const buyResult = propertyToListingCardProps(buyProperty);
+    expect(buyResult.price).toBe(15000000);
+    expect(buyResult.priceSuffix).toBe("");
+
+    const shortStayResult = propertyToListingCardProps(shortStayProperty);
+    expect(shortStayResult.price).toBe(1200);
+    expect(shortStayResult.priceSuffix).toBe("/day");
+  });
 });
 
 describe("profileToProfileGridCardProps", () => {

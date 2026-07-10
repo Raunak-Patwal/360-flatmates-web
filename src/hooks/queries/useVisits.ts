@@ -175,7 +175,7 @@ export function useUpdateVisit(id: number) {
 
       const isFlatmateMeet = current?.visit_context === "flatmate_meet";
 
-      return apiClient.request<any>({
+      return apiClient.request<Visit>({
         method: "PUT",
         path: isFlatmateMeet ? `/flatmates/visits/${id}` : `/visits/${id}`,
         body: payload

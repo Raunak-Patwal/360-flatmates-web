@@ -133,7 +133,7 @@ export function DiscoverPage() {
               cursor: ""
             });
           },
-          (err) => {
+          (_err) => {
             if (latestFilterRef.current !== item) return;
             uiStore.getState().pushToast({
               type: "error",

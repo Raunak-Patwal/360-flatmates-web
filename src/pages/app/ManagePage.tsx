@@ -44,7 +44,12 @@ export function ManagePage() {
     const filtered =
       statusFilter === "all"
         ? properties
-        : properties.filter((p) => (p.property_status ?? "draft") === statusFilter);
+        : properties.filter((p) => {
+            if (statusFilter === "approved" || statusFilter === "pending_review" || statusFilter === "rejected") {
+              return p.property_status === statusFilter;
+            }
+            return (p.status ?? "draft") === statusFilter;
+          });
 
     const sorted = [...filtered];
     sorted.sort((a, b) => {

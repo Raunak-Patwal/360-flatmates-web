@@ -72,9 +72,11 @@ function ratingToInterestLevel(rating: number): "high" | "medium" | "low" {
 function StarRating({
   value,
   onChange,
+  disabled = false,
 }: {
   value: number;
-  onChange: (rating: number) => void;
+  onChange?: (rating: number) => void;
+  disabled?: boolean;
 }) {
   const [hovered, setHovered] = useState(0);
 
@@ -85,15 +87,17 @@ function StarRating({
           key={star}
           type="button"
           role="radio"
+          disabled={disabled}
           aria-checked={value === star}
           aria-label={`${star} star${star > 1 ? "s" : ""}`}
           className={cn(
             "p-0.5 transition-colors",
+            disabled ? "cursor-default" : "cursor-pointer",
             (hovered || value) >= star ? "text-warning" : "text-ink-4"
           )}
-          onClick={() => onChange(star)}
-          onMouseEnter={() => setHovered(star)}
-          onMouseLeave={() => setHovered(0)}
+          onClick={() => !disabled && onChange?.(star)}
+          onMouseEnter={() => !disabled && setHovered(star)}
+          onMouseLeave={() => !disabled && setHovered(0)}
         >
           <Star
             aria-hidden="true"
@@ -104,6 +108,13 @@ function StarRating({
       ))}
     </div>
   );
+}
+
+function interestLevelToRating(level?: string): number {
+  if (level === "high") return 5;
+  if (level === "medium") return 3;
+  if (level === "low") return 1;
+  return 0;
 }
 
 /* ---------- Visit Detail Page ---------- */
@@ -386,8 +397,20 @@ export function VisitDetailPage() {
       )}
 
       {feedbackSubmitted && (
-        <Card className="p-4 text-center">
-          <p className="text-body-md font-semibold text-success">Thank you for your feedback!</p>
+        <Card className="p-4 flex flex-col gap-4 text-left">
+          <h2 className="text-h3 font-serif">Your Feedback</h2>
+          <div className="flex flex-col gap-2">
+            <span className="text-label-md text-ink-2">Rating Given</span>
+            <StarRating value={interestLevelToRating(visit?.interest_level)} disabled />
+          </div>
+          {visit?.visitor_feedback && (
+            <div className="flex flex-col gap-1">
+              <span className="text-label-md text-ink-2">Comments</span>
+              <p className="text-body-md text-ink bg-paper-2/50 p-3 rounded-lg border border-line">
+                {visit.visitor_feedback}
+              </p>
+            </div>
+          )}
         </Card>
       )}
 

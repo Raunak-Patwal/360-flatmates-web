@@ -67,6 +67,8 @@ export interface Property {
   latitude?: number;
   longitude?: number;
   monthly_rent: number;
+  base_price?: number;
+  daily_rate?: number;
   main_image_url?: string;
   image_urls?: string[];
   area_sqft?: number;

@@ -265,7 +265,11 @@ export function PostPage() {
               title: "Listing published"
             });
           }
-          navigate(`/post/review/${property.id}`, { state: { listingId: property.id } });
+          if (property?.property_status === "approved" || property?.status === "active") {
+            navigate(`/my-listings/${property.id}`);
+          } else {
+            navigate(`/post/review/${property.id}`, { state: { listingId: property.id } });
+          }
         },
         onError: (err) => {
           uiStore.getState().pushToast({
